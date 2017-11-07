@@ -122,7 +122,8 @@ function load_hero(hero_number){
 	hero_name = heroes_dict[hero_number]["NAME"];
 	
 	var pic = document.getElementById('hero_pic');
-	pic.setAttribute("src", "images/heroes/" +  hero_name.replace(" ", "_") + ".png");
+	// simple replace only replaced 1st match; with this syntax, replaces all
+	pic.setAttribute("src", "images/heroes/" +  hero_name.replace(/ /g, "_") + ".png");
 	
 
 	var p = document.getElementById('random_hero');

@@ -2,7 +2,7 @@
 
 # extract all heroes pics
 # problem: some valve files dont use the official names
-
+# some current problems: kotl
 hero_list=$(cat dota2.html | grep -Eo "id=\"link_[^\"]*\"" \
  | cut -d \" -f 2 \
  | cut -d _ -f 2-100)
