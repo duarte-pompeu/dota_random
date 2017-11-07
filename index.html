@@ -1,0 +1,166 @@
+<html>
+<head>
+
+<script src="dota_random.js"></script>
+<style>
+table, th, td {
+    border: 1px solid black;
+    padding: 15px;
+}
+</style>
+</head>
+<body>
+	<p>TODO: 1. mobile friendly; 2. not ugly</p>
+	<select id ="hero_select" onchange="load_hero(this.selectedIndex);"></select>
+	<button id="re_random">Random again</button>
+	<p>Your hero is: </p>
+	<p id="random_hero"></p>
+	
+	<div id="base_stats">
+		
+		<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th>Compared to other heroes</th>
+<!--
+      <th>% Max</th>
+-->
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HP</td>
+      <td id=injectable_HP></td>
+       <td id="injectable_HP_percentile"></td>
+<!--
+       <td id="injectable_HP_percent_max"></td>
+-->
+    </tr>
+    <tr>
+      <td >Mana</td>
+      <td id=injectable_MP></td>
+      <td id=injectable_MP_percentile></td>
+<!--
+      <td id=injectable_MP_percent_max></td>
+-->
+    </tr>
+    <tr>
+      <td>Damage</td>
+      <td id=injectable_DMG></td>
+      <td id=injectable_DMG_percentile></td>
+<!--
+      <td id=injectable_DMG_percent_max></td>
+-->
+    </tr>
+    <tr>
+      <td>Armor</td>
+      <td id=injectable_AR></td>
+      <td id=injectable_AR_percentile></td>
+<!--
+      <td id=injectable_AR_percent_max></td>
+-->
+    </tr>
+  </tbody>
+</table>
+<!-- Codes by Quackit.com -->
+	</div>
+	
+	<div id="attributes"></div>
+	
+	<p>Values taken on 3/11/2017 from <a href=https://dota2.gamepedia.com/Table_of_hero_attributes">dota2.gamepedia.com/Table_of_hero_attributes</a>.</p>
+
+</body>
+
+<script>
+
+var n = random_hero();
+var hero_number = n;
+var hero_fields = heroes[n];
+var hero_name = hero_fields[0];
+load_hero(hero_number, hero_name);
+
+var re_random = document.getElementById('re_random');
+re_random.setAttribute('onclick', "var n = random_hero(); load_hero(n)");
+
+var select = document.getElementById('hero_select');
+select.setAttribute('size', 3);
+for(var i = 0; i < heroes_dict.length; i++){
+	select.innerHTML +="<option>" + heroes_dict[i]["NAME"] + "</option>";
+}
+
+function random_hero(){
+	var n = Math.random()*heroes.length;
+	n = Math.floor(n);
+	return n;
+}
+
+function load_hero(hero_number){
+	hero_name = heroes_dict[hero_number]["NAME"];
+
+	var p = document.getElementById('random_hero');
+	p.innerHTML= hero_name;
+
+	var html="<table><tr>\n";
+	for(var i = 0; i < fields.length; i++){
+		html+="<th>" + fields[i] + "</th>";
+	}
+	html+="</tr><tr>";
+
+	for(var i = 0; i < fields.length; i++){
+		html+="<td>" + hero_fields[i] + "</td>";
+	}
+	html+="</tr>";
+	html+="</table>\n"
+
+	var div = document.getElementById('attributes');
+	div.innerHTML = html;
+
+	var atts = ["HP", "MP", "AR", "DMG"];
+
+	hero_atts = heroes_dict[hero_number];
+
+	for(var i = 0; i < atts.length; i++){
+		var attribute = atts[i];
+		var tag = document.getElementById("injectable_" + attribute);
+		
+		if (tag == null) continue;
+		
+		tag.innerHTML = hero_atts[attribute];
+		
+		//compare to other heroes
+		
+		// find percentiles
+		var ratio = 0;
+		for(var n = 0; n < heroes_dict.length; n++){
+			if(parseInt(hero_atts[attribute]) >= parseInt(heroes_dict[n][attribute])){
+				ratio++;
+			}
+		}
+		ratio = ratio / heroes.length;
+		var rating = Math.min(5, Math.floor(ratio * 5)+1);
+		var rating_tag = document.getElementById("injectable_" + attribute + "_percentile");
+		var stars = ["*", "**", "***", "****", "*****"];
+		rating_tag.innerHTML = stars[rating-1] + " ("+Math.round(ratio*100)+"%)";
+		
+		// compare to max hero
+		// not liking it so much, lets have only percentile
+		//~ var max = 0;
+		//~ for(var n = 0; n < heroes_dict.length; n++){
+			//~ if( max < parseInt(heroes_dict[n][attribute])){
+				//~ max = parseInt(heroes_dict[n][attribute]);
+			//~ }
+		//~ }
+		//~ 
+		//~ ratio = parseInt(hero_atts[attribute]) / max;
+		//~ rating = Math.min(5, Math.floor(ratio*5)+1);
+		//~ var rating_tag = document.getElementById("injectable_" + attribute + "_percent_max");
+		//~ rating_tag.innerHTML += stars[rating-1] + " ("+Math.round(ratio*100)+"%)";
+	}
+		
+}
+
+</script>
+
+</html>
