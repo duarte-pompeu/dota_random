@@ -1,79 +1,101 @@
+<!DOCTYPE HTML>
+<!--
+	Fractal by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
+	<head>
+		<title>Fractal by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<script src="dota_random.js"></script>
+	</head>
+	<body id="top">
 
-<script src="dota_random.js"></script>
-<style>
-table, th, td {
-    border: 1px solid black;
-    padding: 15px;
-}
-</style>
-</head>
-<body>
-	<p>TODO: 1. mobile friendly; 2. not ugly</p>
-	<select id ="hero_select" onchange="load_hero(this.selectedIndex);"></select>
-	<button id="re_random">Random again</button>
-	<p>Your hero is: </p>
-	<p id="random_hero"></p>
-	
-	<div id="base_stats">
-		
-		<table class="GeneratedTable">
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Value</th>
-      <th>Compared to other heroes</th>
-<!--
-      <th>% Max</th>
--->
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>HP</td>
-      <td id=injectable_HP></td>
-       <td id="injectable_HP_percentile"></td>
-<!--
-       <td id="injectable_HP_percent_max"></td>
--->
-    </tr>
-    <tr>
-      <td >Mana</td>
-      <td id=injectable_MP></td>
-      <td id=injectable_MP_percentile></td>
-<!--
-      <td id=injectable_MP_percent_max></td>
--->
-    </tr>
-    <tr>
-      <td>Damage</td>
-      <td id=injectable_DMG></td>
-      <td id=injectable_DMG_percentile></td>
-<!--
-      <td id=injectable_DMG_percent_max></td>
--->
-    </tr>
-    <tr>
-      <td>Armor</td>
-      <td id=injectable_AR></td>
-      <td id=injectable_AR_percentile></td>
-<!--
-      <td id=injectable_AR_percent_max></td>
--->
-    </tr>
-  </tbody>
-</table>
-<!-- Codes by Quackit.com -->
-	</div>
-	
-	<div id="attributes"></div>
-	
-	<p>Values taken on 3/11/2017 from <a href=https://dota2.gamepedia.com/Table_of_hero_attributes">dota2.gamepedia.com/Table_of_hero_attributes</a>.</p>
+		<!-- Header -->
+			<header id="header">
+				<div class="content">
+					<h1 id="random_hero"></h1>
+					<p></p>
+					<ul class="actions">
+						<li><select id ="hero_select" onchange="load_hero(this.selectedIndex);"></select></li>
+						<li><button id="re_random" class="button">Random again</button></li>
+					</ul>
+						<table class="GeneratedTable">
+	  <thead>
+		<tr>
+		  <th>Attribute</th>
+		  <th>Value</th>
+		  <th>Compared to other heroes</th>
 
-</body>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>HP</td>
+		  <td id=injectable_HP></td>
+		   <td id="injectable_HP_percentile"></td>
+	<!--
+		   <td id="injectable_HP_percent_max"></td>
+	-->
+		</tr>
+		<tr>
+		  <td >Mana</td>
+		  <td id=injectable_MP></td>
+		  <td id=injectable_MP_percentile></td>
+	<!--
+		  <td id=injectable_MP_percent_max></td>
+	-->
+		</tr>
+		<tr>
+		  <td>Damage</td>
+		  <td id=injectable_DMG></td>
+		  <td id=injectable_DMG_percentile></td>
+	<!--
+		  <td id=injectable_DMG_percent_max></td>
+	-->
+		</tr>
+		<tr>
+		  <td>Armor</td>
+		  <td id=injectable_AR></td>
+		  <td id=injectable_AR_percentile></td>
+	<!--
+		  <td id=injectable_AR_percent_max></td>
+	-->
+		</tr>
+	  </tbody>
+	</table>
+	<!-- Codes by Quackit.com -->
+					
+				</div>
+				<div class="image phone"><div class="inner"><img id="hero_pic" src="images/screen.jpg" alt="" /></div></div>
+			</header>
 
-<script>
+		<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+				</ul>
+				<p class="copyright">&copy; Untitled. Credits: <a href="http://html5up.net">HTML5 UP</a></p>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+	<script>
 
 var n = random_hero();
 var hero_number = n;
@@ -98,6 +120,10 @@ function random_hero(){
 
 function load_hero(hero_number){
 	hero_name = heroes_dict[hero_number]["NAME"];
+	
+	var pic = document.getElementById('hero_pic');
+	pic.setAttribute("src", "images/heroes/" +  hero_name.replace(" ", "_") + ".png");
+	
 
 	var p = document.getElementById('random_hero');
 	p.innerHTML= hero_name;
@@ -114,8 +140,8 @@ function load_hero(hero_number){
 	html+="</tr>";
 	html+="</table>\n"
 
-	var div = document.getElementById('attributes');
-	div.innerHTML = html;
+	//~ var div = document.getElementById('attributes');
+	//~ div.innerHTML = html;
 
 	var atts = ["HP", "MP", "AR", "DMG"];
 
@@ -143,24 +169,9 @@ function load_hero(hero_number){
 		var rating_tag = document.getElementById("injectable_" + attribute + "_percentile");
 		var stars = ["*", "**", "***", "****", "*****"];
 		rating_tag.innerHTML = stars[rating-1] + " ("+Math.round(ratio*100)+"%)";
-		
-		// compare to max hero
-		// not liking it so much, lets have only percentile
-		//~ var max = 0;
-		//~ for(var n = 0; n < heroes_dict.length; n++){
-			//~ if( max < parseInt(heroes_dict[n][attribute])){
-				//~ max = parseInt(heroes_dict[n][attribute]);
-			//~ }
-		//~ }
-		//~ 
-		//~ ratio = parseInt(hero_atts[attribute]) / max;
-		//~ rating = Math.min(5, Math.floor(ratio*5)+1);
-		//~ var rating_tag = document.getElementById("injectable_" + attribute + "_percent_max");
-		//~ rating_tag.innerHTML += stars[rating-1] + " ("+Math.round(ratio*100)+"%)";
 	}
 		
 }
 
 </script>
-
 </html>
