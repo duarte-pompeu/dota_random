@@ -120,7 +120,7 @@ function load_hero(hero_number){
 	
 	var pic = document.getElementById('hero_pic');
 	// simple replace only replaced 1st match; with this syntax, replaces all
-	pic.setAttribute("src", "images/heroes/" +  hero_name.replace(/ /g, "_") + ".png");
+	pic.setAttribute("src", "images/heroes/" +  hero_name.replace(/ /g, "_").toLowerCase() + ".png");
 	
 
 	var p = document.getElementById('random_hero');
