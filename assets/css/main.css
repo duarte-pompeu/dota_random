@@ -2410,12 +2410,14 @@
 			}
 
 			.image.phone:before {
+			display:none;
 				height: 2.5em;
 				border-radius: 1em 1em 0 0;
 				border-bottom: 0;
 			}
 
 			.image.phone:after {
+			display:none;
 				height: 3.5em;
 				border-radius: 0 0 1em 1em;
 				border-top: 0;
