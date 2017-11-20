@@ -15,6 +15,16 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<script src="dota_random.js"></script>
 	</head>
+	
+<!--
+	CODE FOR STAR ICONS
+-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		.checked {
+			color: orange;
+		}
+	</style>
 	<body id="top">
 
 		<!-- Header -->
@@ -166,7 +176,17 @@ function load_hero(hero_number){
 		var rating = Math.min(5, Math.floor(ratio * 5)+1);
 		var rating_tag = document.getElementById("injectable_" + attribute + "_percentile");
 		var stars = ["*", "**", "***", "****", "*****"];
-		rating_tag.innerHTML = stars[rating-1] + " ("+Math.round(ratio*100)+"%)";
+		
+		
+		var n_stars = stars[rating-1].length;
+		rating_tag.innerHTML = ""; // reset when browsing different heroes
+		for(var j=0; j < n_stars; j++){
+			rating_tag.innerHTML += "<span class=\"fa fa-star checked\"></span>";
+		}
+		for(; j < 5; j++){
+			rating_tag.innerHTML += "<span class=\"fa fa-star\"></span>";
+		}
+		rating_tag.innerHTML += " ("+Math.round(ratio*100)+"%)";
 	}
 		
 }
